@@ -16,11 +16,15 @@ OBJS = $(patsubst %,$(ODIR)/%,$(_OBJS))
 
 all: $(TARGET)
 
+directory:
+	mkdir -p $(ODIR)
+
 $(TARGET): $(OBJS)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
 
-$(ODIR)/%.o: %.c $(DEPS)
+$(ODIR)/%.o: %.c $(DEPS) | directory
 	$(CC) -c -o $@ $< $(CFLAGS)
+
 
 bin2exe: $(OBJ)
 	$(CC) -o $@ $^ $(CFLAGS) $(LIBS)
